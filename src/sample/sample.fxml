@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="810.0" style="-fx-background-color: #414B7A;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+   <children>
+      <AnchorPane layoutX="1.0" layoutY="47.0" prefHeight="341.0" prefWidth="810.0" style="-fx-background-color: #E1E0DB;">
+         <children>
+            <TextField fx:id="dielectricConstField" alignment="TOP_CENTER" layoutX="160.0" layoutY="130.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="waveResistField" alignment="TOP_CENTER" layoutX="160.0" layoutY="50.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="freqField" alignment="TOP_CENTER" layoutX="160.0" layoutY="90.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <Text fill="#231651" layoutX="46.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Входные данные:" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Text>
+            <TextField fx:id="stripThicknessField" alignment="TOP_CENTER" layoutX="160.0" layoutY="210.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="lossTangetField" alignment="TOP_CENTER" layoutX="160.0" layoutY="250.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <Button fx:id="calcButton" layoutX="355.0" layoutY="138.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="97.0" style="-fx-background-color: #E1E0DB; -fx-border-radius: 8; -fx-border-color: #E1E0DB;" styleClass="styles\main.css" stylesheets="@../styles/main.css" textFill="#0248dd">
+               <font>
+                  <Font name="Algerian" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fx:id="arrowImage" fitHeight="73.0" fitWidth="101.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/arrow-forward.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <TextField fx:id="subThicknessField" alignment="TOP_CENTER" layoutX="160.0" layoutY="170.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="conductField" alignment="TOP_CENTER" layoutX="160.0" layoutY="290.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <Text fill="#231651" layoutX="11.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Волновое сопротивление" wrappingWidth="155.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="11.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Рабочая частота" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="11.0" layoutY="135.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Диэлектрическая проницаемость" wrappingWidth="171.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="11.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Толщинка подложки" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="11.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Толщина полоски" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="11.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Тангенс угла потерь" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="11.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Удельная проводимость проводника" wrappingWidth="149.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <TextField fx:id="conductWidthField" alignment="TOP_CENTER" layoutX="592.0" layoutY="50.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="effectDielConstField" alignment="TOP_CENTER" layoutX="592.0" layoutY="90.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="waveLengthField" alignment="TOP_CENTER" layoutX="592.0" layoutY="130.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="dielectricLossField" alignment="TOP_CENTER" layoutX="592.0" layoutY="170.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="conductLossField" alignment="TOP_CENTER" layoutX="592.0" layoutY="210.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="totalAttenField" alignment="TOP_CENTER" layoutX="592.0" layoutY="250.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <Text fill="#231651" layoutX="462.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ширина проводника" wrappingWidth="155.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="462.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Эффективная диэл. проницаемость" wrappingWidth="190.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="462.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Длина волны" wrappingWidth="155.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="462.0" layoutY="187.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Потери в диэлектрике" wrappingWidth="155.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="462.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Потери в проводнике" wrappingWidth="155.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="462.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Общее затухание" wrappingWidth="155.0">
+               <font>
+                  <Font name="System Bold" size="11.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="freqChoiceBox" layoutX="293.0" layoutY="90.0" prefHeight="25.0" prefWidth="53.0" stylesheets="@../styles/main.css" />
+            <ChoiceBox fx:id="totalAttenChoiceBox" layoutX="727.0" layoutY="250.0" prefHeight="25.0" prefWidth="59.0" stylesheets="@../styles/main.css" />
+            <ChoiceBox fx:id="subThicknessChoiceBox" layoutX="293.0" layoutY="170.0" prefHeight="25.0" prefWidth="53.0" stylesheets="@../styles/main.css" />
+            <ChoiceBox fx:id="stripThicknessChoiceBox" layoutX="293.0" layoutY="210.0" prefHeight="25.0" prefWidth="53.0" stylesheets="@../styles/main.css" />
+            <Text fill="#231651" layoutX="300.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ом" wrappingWidth="38.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="300.0" layoutY="309.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cм" wrappingWidth="38.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <ChoiceBox fx:id="waveLengthChoiceBox" layoutX="727.0" layoutY="130.0" prefHeight="25.0" prefWidth="59.0" stylesheets="@../styles/main.css" />
+            <ChoiceBox fx:id="dielectricLossChoiceBox" layoutX="727.0" layoutY="170.0" prefHeight="25.0" prefWidth="59.0" stylesheets="@../styles/main.css" />
+            <ChoiceBox fx:id="conductLossChoiceBox" layoutX="727.0" layoutY="210.0" prefHeight="25.0" prefWidth="59.0" stylesheets="@../styles/main.css" />
+            <Text fill="#231651" layoutX="727.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="мм" wrappingWidth="38.0">
+               <font>
+                  <Font name="System Bold" size="17.0" />
+               </font>
+            </Text>
+            <Text fill="#231651" layoutX="491.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Выходные параметры:" wrappingWidth="202.0">
+               <font>
+                  <Font name="System Bold Italic" size="17.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <Label layoutX="320.0" layoutY="1.0" prefHeight="46.0" prefWidth="190.0" text="StripCalc" textFill="WHITE">
+         <font>
+            <Font name="Sitka Small Italic" size="39.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="38.0" fitWidth="41.0" layoutX="6.0" layoutY="5.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@assets/questionmarkcircle_110957.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
