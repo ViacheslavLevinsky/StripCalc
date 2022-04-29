@@ -13,7 +13,7 @@ public class Main extends Application {
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("StripCalc");
-        primaryStage.setScene(new Scene(root, 810, 400));
+        primaryStage.setScene(new Scene(root, 810, 370));
         primaryStage.setResizable(false);
         primaryStage.show();
     }

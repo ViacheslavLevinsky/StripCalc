@@ -6,10 +6,15 @@ public class CalcModel {
 
         private final float MAGNETIC_CONST = (float) (12.56 * Math.pow(10, -7));
 
-        public float getConductWidth(float waveResist, float subThickness, float dielectricConst, float stripThickness){
+        public float getConductWidth(float waveResist, float subThickness, float dielectricConst){
                 float conductWidth = 0;
-                if (waveResist != 0 && subThickness !=0 && dielectricConst !=0 && stripThickness != 0) {
-                    conductWidth = (float) ((7.463 * subThickness) / (Math.exp(waveResist * (Math.sqrt(0.4755 * dielectricConst + 0.67) / 60))) * 1.25 * stripThickness);
+                float A;
+                if (waveResist != 0 && subThickness !=0 && dielectricConst !=0) {
+                    A = (float) ((waveResist/60) * Math.sqrt((dielectricConst + 1)/2) +
+                            ((dielectricConst - 1)/(dielectricConst + 1)) * (0.23 + 0.11/dielectricConst));
+                    conductWidth = (float) ((8 * Math.exp(A) * subThickness)/(Math.exp(2 * A) - 2));
+
+                    //conductWidth = (float) ((7.463 * subThickness) / (Math.exp(waveResist * (Math.sqrt(0.4755 * dielectricConst + 0.67) / 60))) * 1.25 * stripThickness);
                 }
                 return conductWidth;
         }
@@ -25,7 +30,7 @@ public class CalcModel {
         public float getWaveLenght(float waveLenghtFreeSpace, float effectDielConst){
             float waveLenght = 0;
             if (waveLenghtFreeSpace != 0 && effectDielConst != 0){
-                waveLenght = waveLenghtFreeSpace / effectDielConst;
+                waveLenght = (float) (waveLenghtFreeSpace / Math.sqrt(effectDielConst));
             }
             return waveLenght;
         }
@@ -50,8 +55,8 @@ public class CalcModel {
 
         public float getConductLoss(float conduct, float freq, float waveResist, float conductWidth){
             float conductLoss = 0;
-            float surfaceResist = 0;
-            float deltaC = 0;
+            float surfaceResist;
+            float deltaC;
             if (conduct != 0 && freq != 0 && waveResist != 0 && conductWidth != 0){
                 deltaC = (float) Math.sqrt(2/(MAGNETIC_CONST * freq * conduct));
                 surfaceResist = 1 / (conduct * deltaC);
@@ -63,7 +68,7 @@ public class CalcModel {
 
         public float getTotalAttenuation(float dielectricLoss, float conductLoss){
             float totalAttenuation = 0;
-            if (dielectricLoss != 0 && conductLoss != 0 ){
+            if (dielectricLoss != 0 && conductLoss != 0){
                 totalAttenuation = dielectricLoss + conductLoss;
             }
             return totalAttenuation;

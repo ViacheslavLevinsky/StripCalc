@@ -18,7 +18,6 @@ public class Controller {
     private float freq;
     private float waveLenght;
     private float subThickness;
-    private float stripThickness;
     private float lossTangent;
     private float dielectricConst;
     private float waveResist;
@@ -29,19 +28,19 @@ public class Controller {
 
     private final String[] freqS = {"Гц", "кГц", "МГц", "ГГц"};
     private final String[] subThicknesseS = {"мм", "см", "м"};
-    private final String[] stripThicknesseS = {"мкм", "мм"};
     private final String[] totalAttenS = {"дБ/мм", "дБ/см", "дБ/м"};
     private final String[] waveLengthS = {"мкм", "мм", "см", "м"};
     private final String[] dielectricLosseS = {"дБ/мм", "дБ/см", "дБ/м"};
     private final String[] conductLosseS = {"дБ/мм", "дБ/см", "дБ/м"};
 
+    @FXML
+    private Button infoButton;
+    @FXML
     private boolean isCalculated = false;
     @FXML
     private ChoiceBox<String> subThicknessChoiceBox;
     @FXML
     private ChoiceBox<String> totalAttenChoiceBox;
-    @FXML
-    private ChoiceBox<String> stripThicknessChoiceBox;
     @FXML
     private ChoiceBox<String> freqChoiceBox;
     @FXML
@@ -83,11 +82,11 @@ public class Controller {
     @FXML
     private TextField waveResistField;
     @FXML
+
     void initialize() {
 
         freqChoiceBox.setValue("Гц");
         subThicknessChoiceBox.setValue("мм");
-        stripThicknessChoiceBox.setValue("мкм");
         totalAttenChoiceBox.setValue("дБ/м");
         waveLengthChoiceBox.setValue("м");
         dielectricLossChoiceBox.setValue("дБ/м");
@@ -97,7 +96,6 @@ public class Controller {
 
         freqChoiceBox.getItems().addAll(freqS);
         subThicknessChoiceBox.getItems().addAll(subThicknesseS);
-        stripThicknessChoiceBox.getItems().addAll(stripThicknesseS);
         waveLengthChoiceBox.getItems().addAll(waveLengthS);
         dielectricLossChoiceBox.getItems().addAll(dielectricLosseS);
         conductLossChoiceBox.getItems().addAll(conductLosseS);
@@ -107,7 +105,6 @@ public class Controller {
         addTextLimiter(freqField, 6);
         addTextLimiter(dielectricConstField, 6);
         addTextLimiter(subThicknessField, 6);
-        addTextLimiter(stripThicknessField, 6);
         addTextLimiter(lossTangetField, 6);
         addTextLimiter(conductField, 6);
 
@@ -134,10 +131,16 @@ public class Controller {
             }
         });
 
-        stripThicknessChoiceBox.setOnAction(actionEvent -> {
+
+        dielectricLossChoiceBox.setOnAction(actionEvent -> {
             if (isCalculated){
-                initVars();
-                calculate();
+                output();
+            }
+        });
+
+
+        conductLossChoiceBox.setOnAction(actionEvent -> {
+            if (isCalculated){
                 output();
             }
         });
@@ -154,11 +157,6 @@ public class Controller {
             }
         });
 
-        waveLengthChoiceBox.setOnAction(actionEvent -> {
-            if (isCalculated){
-                output();
-            }
-        });
 
     }
 
@@ -176,8 +174,7 @@ public class Controller {
 
 
     public String getFormatedString(float value){
-        String string = String.format("%.4f", value);
-        return string;
+        return String.format("%.4f", value);
     }
     public void initVars(){
         waveResist = parseFloat(waveResistField);
@@ -196,21 +193,15 @@ public class Controller {
             default:
         }
 
-        stripThickness = parseFloat(stripThicknessField);
-        switch (stripThicknessChoiceBox.getValue()){
-            case "мкм": stripThickness = (float) (stripThickness * Math.pow(10, -6)); break;
-            case "мм": stripThickness = stripThickness/1000; break;
-            default:
-        }
         lossTangent = parseFloat(lossTangetField);
         conduct = parseFloat(conductField);
     }
 
     public void calculate(){
-        conductWidth = calcModel.getConductWidth(waveResist, subThickness, dielectricConst, stripThickness);
+        conductWidth = calcModel.getConductWidth(waveResist, subThickness, dielectricConst);
         effectDielConst = calcModel.getEffectDielConst(dielectricConst, subThickness, conductWidth);
         waveLenghtFreeSpace = calcModel.getWaveLenghtFreeSpace(freq);
-        waveLenght = calcModel.getWaveLenght(freq, effectDielConst);
+        waveLenght = calcModel.getWaveLenght(waveLenghtFreeSpace, effectDielConst);
         dielectricLoss = calcModel.getDielectricLoss(dielectricConst, effectDielConst, lossTangent, waveLenghtFreeSpace);
         conductLoss = calcModel.getConductLoss(conduct, freq, waveResist, conductWidth);
         totalAttenuation = calcModel.getTotalAttenuation(dielectricLoss, conductLoss);
@@ -220,24 +211,30 @@ public class Controller {
         conductWidthField.setText(getFormatedString(conductWidth * 1000));
         effectDielConstField.setText(getFormatedString(effectDielConst));
         waveLengthField.setText(getFormatedString(waveLenght));
-        switch (dielectricLossChoiceBox.getValue()) {
-            case "дБ/см" -> dielectricLossField.setText(getFormatedString(dielectricLoss / 100));
-            case "дБ/мм" -> dielectricLossField.setText(getFormatedString(dielectricLoss / 1000));
-            default -> dielectricLossField.setText(getFormatedString(dielectricLoss));
-        }
-        dielectricLossField.setText(getFormatedString(dielectricLoss));
 
+        switch (waveLengthChoiceBox.getValue()){
+            case "мкм" : waveLengthField.setText(getFormatedString(waveLenght * 10000)); break;
+            case "мм" : waveLengthField.setText(getFormatedString(waveLenght * 1000)); break;
+            case "см" : waveLengthField.setText(getFormatedString(waveLenght * 100)); break;
+            default: waveLengthField.setText(getFormatedString(waveLenght));
+        }
+
+        switch (dielectricLossChoiceBox.getValue()) {
+            case "дБ/см":dielectricLossField.setText(getFormatedString(dielectricLoss / 100)); break;
+            case "дБ/мм": dielectricLossField.setText(getFormatedString(dielectricLoss / 1000)); break;
+            default: dielectricLossField.setText(getFormatedString(dielectricLoss));
+        }
 
         switch (conductLossChoiceBox.getValue()) {
-            case "дБ/см" -> conductLossField.setText(getFormatedString(conductLoss / 100));
-            case "дБ/мм" -> conductLossField.setText(getFormatedString(conductLoss / 1000));
-            default -> conductLossField.setText(getFormatedString(conductLoss));
+            case "дБ/см" : conductLossField.setText(getFormatedString(conductLoss / 100)); break;
+            case "дБ/мм" : conductLossField.setText(getFormatedString(conductLoss / 1000)); break;
+            default : conductLossField.setText(getFormatedString(conductLoss));
         }
 
         switch (totalAttenChoiceBox.getValue()) {
-            case "дБ/см" -> totalAttenField.setText(getFormatedString(totalAttenuation / 100));
-            case "дБ/мм" -> totalAttenField.setText(getFormatedString(totalAttenuation / 1000));
-            default -> totalAttenField.setText(getFormatedString(totalAttenuation));
+            case "дБ/см" : totalAttenField.setText(getFormatedString(totalAttenuation / 100)); break;
+            case "дБ/мм" : totalAttenField.setText(getFormatedString(totalAttenuation / 1000)); break;
+            default : totalAttenField.setText(getFormatedString(totalAttenuation));
         }
     }
 
