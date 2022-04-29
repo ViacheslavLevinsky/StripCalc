@@ -14,9 +14,9 @@
    <children>
       <AnchorPane layoutX="1.0" layoutY="51.0" prefHeight="304.0" prefWidth="810.0" style="-fx-background-color: #E1E0DB;">
          <children>
-            <TextField fx:id="dielectricConstField" alignment="TOP_CENTER" layoutX="160.0" layoutY="130.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
             <TextField fx:id="waveResistField" alignment="TOP_CENTER" layoutX="160.0" layoutY="50.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
             <TextField fx:id="freqField" alignment="TOP_CENTER" layoutX="160.0" layoutY="90.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
+            <TextField fx:id="dielectricConstField" alignment="TOP_CENTER" layoutX="160.0" layoutY="130.0" prefHeight="25.0" prefWidth="120.0" style="-fx-background-radius: 30;" />
             <Text fill="#231651" layoutX="46.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Входные данные:" wrappingWidth="149.0">
                <font>
                   <Font name="System Bold Italic" size="17.0" />
@@ -161,7 +161,7 @@
                   <Font name="Sitka Small Italic" size="39.0" />
                </font>
             </Label>
-            <AnchorPane layoutX="1.0" layoutY="51.0" prefHeight="304.0" prefWidth="810.0" style="-fx-background-color: white;">
+            <AnchorPane layoutY="51.0" prefHeight="320.0" prefWidth="817.0" style="-fx-background-color: white;">
                <children>
                   <ImageView fitHeight="236.0" fitWidth="816.0" pickOnBounds="true" preserveRatio="true">
                      <image>
