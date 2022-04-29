@@ -1,20 +1,17 @@
 package sample;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class Controller {
     CalcModel calcModel = new CalcModel();
     private float conductWidth;
     private float effectDielConst;
-    private float waveLenghtFreeSpace;
     private float freq;
     private float waveLenght;
     private float subThickness;
@@ -34,6 +31,10 @@ public class Controller {
     private final String[] conductLosseS = {"дБ/мм", "дБ/см", "дБ/м"};
 
     @FXML
+    private Button backButton;
+    @FXML
+    private AnchorPane calcPane, infoPane;
+    @FXML
     private Button infoButton;
     @FXML
     private boolean isCalculated = false;
@@ -49,10 +50,6 @@ public class Controller {
     private ChoiceBox<String> dielectricLossChoiceBox;
     @FXML
     private ChoiceBox<String> waveLengthChoiceBox;
-    @FXML
-    private ResourceBundle resources;
-    @FXML
-    private URL location;
     @FXML
     private Button calcButton;
     @FXML
@@ -70,8 +67,6 @@ public class Controller {
     @FXML
     private TextField freqField;
     @FXML
-    private TextField stripThicknessField;
-    @FXML
     private TextField lossTangetField;
     @FXML
     private TextField subThicknessField;
@@ -84,6 +79,7 @@ public class Controller {
     @FXML
 
     void initialize() {
+        infoPane.setVisible(false);
 
         freqChoiceBox.setValue("Гц");
         subThicknessChoiceBox.setValue("мм");
@@ -107,6 +103,14 @@ public class Controller {
         addTextLimiter(subThicknessField, 6);
         addTextLimiter(lossTangetField, 6);
         addTextLimiter(conductField, 6);
+
+        infoButton.setOnAction(actionEvent -> {
+            infoPane.setVisible(true);
+        });
+
+        backButton.setOnAction(actionEvent -> {
+            infoPane.setVisible(false);
+        });
 
         calcButton.setOnAction(actionEvent -> {
             initVars();
@@ -156,8 +160,6 @@ public class Controller {
                 output();
             }
         });
-
-
     }
 
     public float parseFloat(TextField textField){
@@ -200,7 +202,7 @@ public class Controller {
     public void calculate(){
         conductWidth = calcModel.getConductWidth(waveResist, subThickness, dielectricConst);
         effectDielConst = calcModel.getEffectDielConst(dielectricConst, subThickness, conductWidth);
-        waveLenghtFreeSpace = calcModel.getWaveLenghtFreeSpace(freq);
+        float waveLenghtFreeSpace = calcModel.getWaveLenghtFreeSpace(freq);
         waveLenght = calcModel.getWaveLenght(waveLenghtFreeSpace, effectDielConst);
         dielectricLoss = calcModel.getDielectricLoss(dielectricConst, effectDielConst, lossTangent, waveLenghtFreeSpace);
         conductLoss = calcModel.getConductLoss(conduct, freq, waveResist, conductWidth);
@@ -242,9 +244,9 @@ public class Controller {
         tf.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(final ObservableValue<? extends String> ov, final String oldValue, final String newValue) {
-                if (tf.getText().equals(",") || tf.getText().equals(".")){
+          /*      if (tf.getText().equals(",") || tf.getText().equals(".")){
                     tf.setText("");
-                }
+                }*/
 
                 if (tf.getText().length() > maxLength) {
                     String s = tf.getText().substring(0, maxLength);
@@ -253,7 +255,4 @@ public class Controller {
             }
         });
     }
-
-
-
 }
